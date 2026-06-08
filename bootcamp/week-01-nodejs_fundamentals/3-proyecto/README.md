@@ -1,105 +1,130 @@
-# 🚀 Proyecto Semanal — Procesador de Datos con Node.js
+# Procesador de Servicios de Mudanza — CLI
 
-## 🎯 Objetivo
-
-Construir una herramienta de línea de comandos (CLI) que lea datos desde un archivo JSON, los procese aplicando filtros y transformaciones, y genere un reporte con los resultados — todo usando **Node.js + TypeScript + async/await**.
+Herramienta de línea de comandos construida con **Node.js + TypeScript** que lee, filtra y procesa un catálogo de servicios de mudanza desde un archivo JSON, genera un resumen estadístico y exporta un reporte estructurado.
 
 ---
 
-## 📋 Tu Dominio Asignado
+## Dominio: Empresa de Mudanzas
 
-**El instructor te asignará un dominio específico.** Mientras tanto, el código `starter/` trabaja con un recurso genérico llamado `Item`.
+Sistema diseñado para una empresa de servicios de mudanza que ofrece diferentes tipos de traslados y servicios complementarios.
 
-Cuando recibas tu dominio, renombra:
-- `Item` → el recurso principal de tu dominio (ej. `Book`, `Medicine`, `Member`)
-- `items.json` → el archivo de datos de tu dominio (ej. `books.json`)
-- Los campos de `Item` → atributos propios de tu recurso
+| Recurso | Descripción |
+|---------|-------------|
+| `MoveService` | Servicio de mudanza individual |
+| Categorías | local, nacional, internacional, embalaje, almacenaje, seguro, ensamblaje |
 
-### 💡 Ejemplos de Adaptación por Dominio
+### Estructura del Recurso
 
-| Dominio | Recurso | Campos |
-|---------|---------|--------|
-| Biblioteca | `Book` | `title`, `author`, `genre`, `available` |
-| Farmacia | `Medicine` | `name`, `category`, `price`, `stock`, `requiresPrescription` |
-| Gimnasio | `Member` | `name`, `plan`, `active`, `monthlyFee` |
-| Restaurante | `Dish` | `name`, `category`, `price`, `available` |
-| Hotel | `Room` | `number`, `type`, `pricePerNight`, `available` |
-
----
-
-## ✅ Requisitos Funcionales
-
-### 1. Leer datos desde un archivo JSON
-
-La herramienta debe leer el archivo `data/items.json` usando `fs/promises`.
-
-### 2. Mostrar un resumen del catálogo
-
-- Total de ítems
-- Ítems activos vs inactivos
-- Precio promedio
-- Ítem más caro y más barato
-
-### 3. Filtrar por categoría
-
-Aceptar un argumento de línea de comandos para filtrar por categoría:
-```bash
-pnpm start -- --category electronics
+```typescript
+interface MoveService {
+  id: string;
+  name: string;
+  category: string;
+  price: number;
+  estimatedHours: number;
+  active: boolean;
+}
 ```
 
-### 4. Generar reporte en un archivo de salida
+---
 
-Guardar el reporte en `output/report.json` usando `fs/promises.writeFile`.
+## Funcionalidades
 
-### 5. Manejo de errores
-
-- Si el archivo `items.json` no existe → mostrar error descriptivo y terminar con `process.exit(1)`
-- Si la categoría no existe → mostrar aviso y listar las categorías disponibles
+- **Lectura de datos** desde `data/items.json` usando `fs/promises` con manejo de errores
+- **Resumen del catálogo**: total de servicios, activos vs inactivos, precio promedio, servicio más caro y más barato, categorías disponibles
+- **Filtro por categoría** mediante argumento CLI `--category`
+- **Generación de reporte** en `output/report.json` con formato legible
+- **Manejo de errores**: archivo no encontrado, categoría inexistente con lista de disponibles
 
 ---
 
-## 🛠️ Entregables
+## Arquitectura
 
-1. **Código funcional** que pase `pnpm build` sin errores TypeScript
-2. **README.md actualizado** con tu dominio y descripción del recurso
-3. **Screenshots o logs** de la herramienta ejecutándose con distintos argumentos
-4. **`data/items.json`** adaptado a tu dominio (mínimo 10 registros)
-5. **Reporte generado** en `output/report.json`
+```
+starter/
+├── data/
+│   └── items.json          # Catálogo de servicios (12 registros)
+├── src/
+│   ├── index.ts            # Entry point — orquesta el flujo
+│   ├── types.ts            # Interfaces del dominio (MoveService, Report)
+│   ├── reader.ts           # Lectura del archivo JSON
+│   ├── processor.ts        # Filtrado y cálculo de estadísticas
+│   └── writer.ts           # Escritura del reporte en disco
+├── output/
+│   └── report.json         # Reporte generado (ignorado por git)
+├── package.json
+├── tsconfig.json
+└── .gitignore
+```
 
 ---
 
-## ⏱️ Tiempo estimado: 2-3 horas
+## Requisitos
 
----
+- Node.js 22+
+- pnpm
 
-## 🧪 Cómo correr el proyecto
+## Instalación
 
 ```bash
-cd 3-proyecto/starter
+cd bootcamp/week-01-nodejs_fundamentals/3-proyecto/starter
 pnpm install
-pnpm dev              # sin filtro — muestra todos
-pnpm dev -- --category electronics   # con filtro
+```
+
+## Uso
+
+```bash
+# Ver todos los servicios
+pnpm dev
+
+# Filtrar por categoría
+pnpm dev -- --category local
+pnpm dev -- --category internacional
+pnpm dev -- --category embalaje
+
+# Verificar tipos TypeScript
+pnpm build
+```
+
+## Ejemplos de Salida
+
+```
+=== Resumen de Servicios de Mudanza ===
+Total de servicios: 12
+Activos: 11
+Inactivos: 1
+Precio promedio: $1.106.250
+Servicio más caro: Mudanza Internacional ($8.500.000)
+Servicio más barato: Seguro de Carga ($95.000)
+Categorías: local, nacional, internacional, embalaje, almacenaje, seguro, ensamblaje
+Reporte guardado en: .../starter/output/report.json
+```
+
+### Con filtro por categoría
+
+```
+=== Resumen de Servicios de Mudanza ===
+Total de servicios: 3
+Activos: 3
+Inactivos: 0
+Precio promedio: $483.333,33
+Servicio más caro: Mudanza Local Premium ($650.000)
+Servicio más barato: Mudanza Local Básica ($350.000)
+Categorías: local
+Reporte guardado en: .../starter/output/report.json
+```
+
+### Manejo de errores
+
+```
+Error: Categoría "inexistente" no encontrada. Categorías disponibles: local, nacional, internacional, embalaje, almacenaje, seguro, ensamblaje
 ```
 
 ---
 
-## 📊 Criterios de Evaluación
+## Tecnologías
 
-| Criterio | Peso |
-|----------|------|
-| Lee y parsea `items.json` correctamente | 20% |
-| Calcula el resumen (total, promedio, extremos) | 20% |
-| Filtra por categoría con `--category` | 20% |
-| Escribe `output/report.json` correctamente | 20% |
-| Manejo de errores (archivo no encontrado, categoría inexistente) | 10% |
-| TypeScript estricto — `pnpm build` sin errores | 10% |
-
----
-
-## 🔗 Recursos de Apoyo
-
-- [Teoría: Módulos ESM](../../1-teoria/02-modulos-esm.md)
-- [Teoría: async/await](../../1-teoria/03-async-await.md)
-- [Ejercicio 01: Hello Node](../../2-practicas/ejercicio-01-hello-node/README.md)
-- [Node.js fs/promises API](https://nodejs.org/docs/latest/api/fs.html#promises-api)
-- [process.argv — Node.js docs](https://nodejs.org/docs/latest/api/process.html#processargv)
+- **Node.js 22** — runtime, `fs/promises`, `process.argv`
+- **TypeScript 5.8** — tipado estricto con `strict: true`
+- **ES Modules** — `import`/`export` con `"type": "module"`
+- **tsx** — ejecución en desarrollo con recarga en caliente
