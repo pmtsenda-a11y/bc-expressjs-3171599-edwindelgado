@@ -1,0 +1,20 @@
+{
+  "name": "semana02-proyecto-mudanzas",
+  "version": "1.0.0",
+  "description": "API REST para servicios de mudanza con Express 5 + TypeScript",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "express": "5.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "5.0.1",
+    "@types/node": "22.15.21",
+    "tsx": "4.19.4",
+    "typescript": "5.8.3"
+  }
+}
