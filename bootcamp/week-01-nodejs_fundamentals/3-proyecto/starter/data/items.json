@@ -1,0 +1,14 @@
+[
+  { "id": "m001", "name": "Mudanza Local Básica", "category": "local", "price": 350000, "estimatedHours": 4, "active": true },
+  { "id": "m002", "name": "Mudanza Local Premium", "category": "local", "price": 650000, "estimatedHours": 6, "active": true },
+  { "id": "m003", "name": "Mudanza Nacional", "category": "nacional", "price": 1800000, "estimatedHours": 24, "active": true },
+  { "id": "m004", "name": "Mudanza Internacional", "category": "internacional", "price": 8500000, "estimatedHours": 120, "active": true },
+  { "id": "m005", "name": "Embalaje Completo", "category": "embalaje", "price": 280000, "estimatedHours": 3, "active": true },
+  { "id": "m006", "name": "Embalaje de Cocina", "category": "embalaje", "price": 120000, "estimatedHours": 2, "active": true },
+  { "id": "m007", "name": "Almacenaje Mensual", "category": "almacenaje", "price": 200000, "estimatedHours": 1, "active": true },
+  { "id": "m008", "name": "Seguro de Carga", "category": "seguro", "price": 95000, "estimatedHours": 1, "active": true },
+  { "id": "m009", "name": "Desmontaje y Montaje", "category": "ensamblaje", "price": 180000, "estimatedHours": 3, "active": true },
+  { "id": "m010", "name": "Mudanza Local Express", "category": "local", "price": 450000, "estimatedHours": 3, "active": true },
+  { "id": "m011", "name": "Almacenaje Trimestral", "category": "almacenaje", "price": 500000, "estimatedHours": 1, "active": false },
+  { "id": "m012", "name": "Embalaje de Electrónica", "category": "embalaje", "price": 150000, "estimatedHours": 2, "active": true }
+]
