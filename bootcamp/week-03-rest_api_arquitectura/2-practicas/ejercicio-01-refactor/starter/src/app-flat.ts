@@ -36,7 +36,7 @@ flatRouter.get('/', (req: Request, res: Response) => {
 });
 
 flatRouter.get('/:id', (req: Request, res: Response) => {
-  const product = products.find((p) => p.id === parseInt(req.params['id']));
+  const product = products.find((p) => p.id === parseInt(req.params['id'] as string));
   if (!product) {
     res.status(404).json({ message: 'Not found' }); // ⚠️ Sin contrato de error estándar
     return;
@@ -65,7 +65,7 @@ flatRouter.post('/', (req: Request, res: Response) => {
 });
 
 flatRouter.put('/:id', (req: Request, res: Response) => {
-  const index = products.findIndex((p) => p.id === parseInt(req.params['id']));
+  const index = products.findIndex((p) => p.id === parseInt(req.params['id'] as string));
   if (index === -1) {
     res.status(404).json({ message: 'Not found' });
     return;
@@ -76,7 +76,7 @@ flatRouter.put('/:id', (req: Request, res: Response) => {
 });
 
 flatRouter.delete('/:id', (req: Request, res: Response) => {
-  const index = products.findIndex((p) => p.id === parseInt(req.params['id']));
+  const index = products.findIndex((p) => p.id === parseInt(req.params['id'] as string));
   if (index === -1) {
     res.status(404).json({ message: 'Not found' });
     return;
