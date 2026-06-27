@@ -36,6 +36,6 @@ async function main(): Promise<void> {
 }
 
 main().catch((err) => {
-  console.error('Error:', (err as Error).message);
+  console.error('Error:', err instanceof Error ? err.message : err);
   process.exit(1);
 });

@@ -31,7 +31,7 @@ loadUsersWithPromise()
     console.log(`✅ Promises        → ${users.length} users cargados`);
     console.log('   Primer usuario:', users[0].name);
   })
-  .catch((err: Error) => console.error('❌ Promise error:', err.message));
+  .catch((err: unknown) => console.error('❌ Promise error:', err instanceof Error ? err.message : err));
 
 // 3️⃣ async/await — el estándar moderno
 const runComparison = async (): Promise<void> => {

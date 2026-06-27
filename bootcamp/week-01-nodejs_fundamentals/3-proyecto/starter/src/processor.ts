@@ -18,6 +18,10 @@ export function filterByCategory(items: MoveService[], categoryFilter: string | 
 }
 
 export function calculateSummary(items: MoveService[]): MoveServiceSummary {
+  if (items.length === 0) {
+    throw new Error('Cannot calculate summary: no items provided');
+  }
+
   const total = items.length;
   const active = items.filter(item => item.active).length;
   const inactive = items.filter(item => !item.active).length;
