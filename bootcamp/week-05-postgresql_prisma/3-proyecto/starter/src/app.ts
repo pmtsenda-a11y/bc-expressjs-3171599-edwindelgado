@@ -13,6 +13,7 @@
 import express from 'express';
 import { errorHandler } from './middlewares/errorHandler';
 import { notFound } from './middlewares/notFound';
+import itemsRouter from './routes/items.routes';
 
 const app = express();
 
@@ -23,7 +24,6 @@ app.get('/health', (_req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-import itemsRouter from './routes/items.routes';
 app.use('/api/v1/books', itemsRouter);
 
 app.use(notFound);

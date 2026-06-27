@@ -6,13 +6,6 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { AppError } from '../errors/AppError';
 import { CreateProductDto, UpdateProductDto } from '../schemas/product.schema';
 
-interface PaginatedResult<T> {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-}
-
 // ============================================================
 // PASO 4A: findAll — Listado paginado de productos
 // Descomenta la implementación de abajo
