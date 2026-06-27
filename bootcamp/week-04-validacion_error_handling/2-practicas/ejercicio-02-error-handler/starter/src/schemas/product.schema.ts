@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 export const createProductSchema = z.object({
-  name: z.string({ required_error: 'name es obligatorio' }).min(1, 'name no puede estar vacío').trim(),
-  price: z.number({ required_error: 'price es obligatorio' }).positive('price debe ser mayor a 0'),
+  name: z.string({ message: 'name es obligatorio' }).min(1, 'name no puede estar vacío').trim(),
+  price: z.number({ message: 'price es obligatorio' }).positive('price debe ser mayor a 0'),
   stock: z.number().int('stock debe ser entero').nonnegative('stock no puede ser negativo').default(0),
 });
 
